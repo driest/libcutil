@@ -16,10 +16,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef _LIBCUTIL_LOG_H_
-#define _LIBCUTIL_LOG_H_
+#ifndef CUTIL_LOG_H
+#define CUTIL_LOG_H
 
-typedef enum LOGLEVEL_T {
+typedef enum LOGLEVEL_ {
   LL_ERR = 0,  // Special error formatting (gets a '[-]' prefix)
   LL_NNL,  // No New Line
   LL_MSG,  // Clean messages without line prefixes
@@ -31,4 +31,4 @@ typedef enum LOGLEVEL_T {
 LOGLEVEL log_level;
 void log_print(LOGLEVEL msg_level, const char *fmt, ...);
 
-#endif  // _LIBCUTIL_LOG_H_
+#endif  // CUTIL_LOG_H

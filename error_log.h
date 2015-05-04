@@ -15,11 +15,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef _LIBCUTIL_ERROR_LOG_H
-#define _LIBCUTIL_ERROR_LOG_H
+#ifndef CUTIL_ERROR_LOG_H
+#define CUTIL_ERROR_LOG_H
 
 #define ERROR_LOG(fmt, ...) do { \
   printf("Error in %s(%d): " fmt, __func__, __LINE__, ##__VA_ARGS__); \
 } while (0)
 
-#endif  // _LIBCUTIL_ERROR_LOG_H
+#endif  // CUTIL_ERROR_LOG_H

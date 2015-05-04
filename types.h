@@ -14,8 +14,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef _LIBCUTIL_TYPES_H_
-#define _LIBCUTIL_TYPES_H_
+#ifndef CUTIL_TYPES_H
+#define CUTIL_TYPES_H
 
 #include "stdbool.h"
 #include "stdint.h"
@@ -50,9 +50,10 @@
   ((sizeof(x) / sizeof(*(x))) / \
   (size_t)(!(sizeof(x) % sizeof(*(x)))))
 
-typedef enum ERROR_T {
+// Standard error type for function return value checking.
+typedef enum ERROR_ {
   SUCCESS = 0,
   FAILURE
 } ERROR;
 
-#endif  // _LIBCUTIL_TYPES_H_
+#endif  // CUTIL_TYPES_H
