@@ -55,13 +55,14 @@ static void test_abort(int signum __attribute__((unused))) {
 // This function runs unit test functions and recovers from errors.
 // It will always return after printing information on test failure,
 // so your tests can continue.
-static void test_run(TEST test_function, const char * const test_name) {
-  printf("[%s] ", test_name);
+static void test_run(TEST test_function, const char * const test_name,
+    size_t test_index) {
+  printf("[TEST %zu] %-50s ", test_index, test_name);
   signal(SIGABRT, test_abort);
   current_test++;
   if (setjmp(test_exception) != TEST_FAILED) {
     test_function();
-    puts("SUCCESS");
+    printf("[%s]\n", "OK");
     passed_tests++;
   }
 }
@@ -80,7 +81,7 @@ ERROR test_add(TEST test_function, const char * const test_name) {
 // Runs any queued tests and prints some statistics.
 ERROR tests_run(void) {
   for (size_t i = 0; i < tests.size; ++i) {
-    test_run(tests.functions[i], tests.names[i]);
+    test_run(tests.functions[i], tests.names[i], i);
   }
   if (current_test == passed_tests) {
     puts("ALL TESTS PASSED");

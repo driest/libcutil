@@ -51,7 +51,7 @@ ERROR tests_run(void);
 
 // Print a formatted error message and the exact location of the test failure.
 #define TEST_FAILED(fmt, ...) do { \
-  printf("FAILED: " fmt "\n\t(%s:%d %s())\n", \
+  printf("[--]\n\t " fmt " in %s:%d %s()\n", \
   ##__VA_ARGS__, __FILE__, __LINE__, __FUNCTION__); \
   abort(); \
 } while (0)
@@ -114,9 +114,9 @@ ERROR tests_run(void);
 } while (0)
 
 #define ASSERT_EQUAL_STRINGS(val1, val2) do { \
-  if (strcmp((val1), (val2))) \
-    TEST_FAILED("%s(%s) != %s(%s)", \
-      __STRING(val1), val1, __STRING(val2), val2); \
+  if (strcmp((char *)(val1), (char *)(val2))) \
+    TEST_FAILED("%s('%s') == %s('%s')", \
+      __STRING(val1), (char *)(val1), __STRING(val2), (char *)(val2)); \
 } while (0)
 
 #define ASSERT_EQUAL_MEMORY(val1, val2, len) do { \
@@ -149,9 +149,9 @@ ERROR tests_run(void);
 } while (0)
 
 #define ASSERT_NOT_EQUAL_STRINGS(val1, val2) do { \
-  if (!strcmp((val1), (val2))) \
-    TEST_FAILED("%s(%s) == %s(%s)", \
-      __STRING(val1), val1, __STRING(val2), val2); \
+  if (!strcmp((char *)(val1), (char *)(val2))) \
+    TEST_FAILED("%s('%s') == %s('%s')", \
+      __STRING(val1), (char *)(val1), __STRING(val2), (char *)(val2)); \
 } while (0)
 
 #define ASSERT_NOT_EQUAL_MEMORY(val1, val2, len) do { \

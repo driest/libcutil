@@ -55,4 +55,8 @@ for FILE in $RELEASE_FILES; do
     fi 
 done
 
-echo "[+] All done. Find your binaries in $RELEASE_DIR"
+echo "[+] Running tests"
+$RELEASE_DIR/cutil_tests
+if [ $? -eq 0 ]; then
+    echo "[+] All done. Find your binaries in $RELEASE_DIR"
+fi
