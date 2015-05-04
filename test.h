@@ -26,8 +26,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef _LIBCUTIL_UTEST_H
-#define _LIBCUTIL_UTEST_H
+#ifndef CUTIL_TEST_H
+#define CUTIL_TEST_H
 
 #include <setjmp.h>
 #include <signal.h>
@@ -56,6 +56,8 @@ ERROR tests_run(void);
   abort(); \
 } while (0)
 
+// Use the following macros inside a test to fail on certain conditions
+
 #define ASSERT_TRUE(expression) do { \
   if (!(expression)) \
     TEST_FAILED("%s not true", __STRING(expression)); \
@@ -74,6 +76,23 @@ ERROR tests_run(void);
 #define ASSERT_NULL(expression) do { \
   if (expression != NULL) \
     TEST_FAILED("%s(%p) not NULL", __STRING(expression), (expression)); \
+} while (0)
+
+#define ASSERT_NOT_NULL(expression) do { \
+  if (expression == NULL) \
+    TEST_FAILED("%s(%p) is NULL", __STRING(expression), (expression)); \
+} while (0)
+
+#define ASSERT_GREATER(val1, val2) do { \
+  if ((val1) <= (val2)) \
+  TEST_FAILED("%s(%zi) <= %s(%zi)", \
+      __STRING(val1), (ssize_t)(val1), __STRING(val2), (ssize_t)(val2)); \
+} while (0)
+
+#define ASSERT_SMALLER(val1, val2) do { \
+  if ((val1) >= (val2)) \
+  TEST_FAILED("%s(%zi) >= %s(%zi)", \
+      __STRING(val1), (ssize_t)(val1), __STRING(val2), (ssize_t)(val2)); \
 } while (0)
 
 #define ASSERT_EQUAL(val1, val2) do { \
@@ -141,4 +160,4 @@ ERROR tests_run(void);
       __STRING(val1), val1, __STRING(val2), val2); \
 } while (0)
 
-#endif  // _LIBCUTIL_UTEST_H
+#endif  // CUTIL_TEST_H
